@@ -31,7 +31,7 @@ cd agent_shared_backend
 cp .env.example .env
 ```
 
-`agent_shared_backend/.env`에 들어가는 값:
+현재 backend 코드가 읽는 env field는 아래 5개입니다. 원본 랩의 실제 `.env`도 이 5개 field를 사용합니다.
 
 ```env
 SERVICE_NAME=a2ui-agui-agent-shared-backend
@@ -57,7 +57,7 @@ cd copilotkit_agui
 cp .env.example .env
 ```
 
-`copilotkit_agui/.env`에 들어가는 값:
+현재 frontend의 Next.js server route가 읽는 env field는 아래 1개입니다.
 
 ```env
 AGENT_AG_UI_URL=http://localhost:8200/api/ag-ui
@@ -70,6 +70,22 @@ AGENT_AG_UI_URL=http://localhost:8200/api/ag-ui
 - Docker, 배포 환경, 다른 포트 사용 시 backend에 접근 가능한 URL로 바꿔야 합니다.
 
 참고로 `make run`은 기본값으로 `AGENT_AG_UI_URL=http://127.0.0.1:8200/api/ag-ui`를 frontend dev server에 주입합니다. 직접 `bun run dev`로 실행할 때는 위 `.env` 파일이 필요합니다.
+
+### Env 파일 체크리스트
+
+실행 전에 아래 두 파일이 로컬에 있어야 합니다.
+
+```text
+agent_shared_backend/.env
+copilotkit_agui/.env
+```
+
+public repo에는 실제 `.env`를 올리지 않고, 아래 example 파일만 커밋합니다.
+
+```text
+agent_shared_backend/.env.example
+copilotkit_agui/.env.example
+```
 
 ## 빠른 실행
 

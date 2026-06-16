@@ -43,6 +43,48 @@ The frontend expects the backend AG-UI endpoint at:
 http://localhost:8200/api/ag-ui
 ```
 
+## Makefile
+
+From the repository root:
+
+```bash
+make install
+make run
+```
+
+`make install` installs both workspaces:
+
+- backend: `uv sync --frozen`
+- frontend: `bun install --frozen-lockfile`
+
+`make run` starts both dev servers:
+
+- backend: `http://127.0.0.1:8200`
+- frontend: `http://localhost:3000`
+- AG-UI backend URL injected into the Next.js server: `http://127.0.0.1:8200/api/ag-ui`
+
+To verify local routing and networking without keeping the servers running:
+
+```bash
+make check-network
+```
+
+This checks:
+
+- backend `GET /health`
+- backend CORS preflight for `POST /api/ag-ui`
+- frontend server-side fetch path from `AGENT_AG_UI_URL` to backend `GET /health`
+- frontend CopilotKit single-route `POST /api/copilotkit` runtime info envelope
+
+The runtime path is:
+
+```text
+Browser
+-> Next.js /api/copilotkit
+-> CopilotRuntime HttpAgent
+-> FastAPI /api/ag-ui
+```
+
 ## Docs
 
 - `flow.md`: high-level implementation flow

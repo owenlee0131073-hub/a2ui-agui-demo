@@ -1,0 +1,319 @@
+.page {
+  min-height: 100svh;
+  background: #000000;
+  color: #ffffff;
+}
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  background-image: url("/images/business-trip-hero.png");
+  background-position: 57% center;
+  background-size: cover;
+  transform: scale(1.015);
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(90deg, rgb(0 0 0 / 85%) 0%, rgb(0 0 0 / 55%) 35%, rgb(0 0 0 / 15%) 72%),
+    linear-gradient(180deg, rgb(0 0 0 / 30%) 0%, transparent 38%, rgb(0 0 0 / 80%) 100%);
+}
+
+.nav {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(100% - 40px, 1200px);
+  margin-inline: auto;
+  margin-top: 24px;
+  padding: 14px 28px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24);
+}
+
+.brand,
+.navAction,
+.primaryAction,
+.secondaryAction {
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 760;
+}
+
+.brandMark {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 8px;
+  background: rgb(255 255 255 / 12%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 12%);
+  backdrop-filter: blur(16px);
+}
+
+.navAction {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  border: 1px solid rgb(255 255 255 / 20%);
+  border-radius: 8px;
+  padding-inline: 16px;
+  background: rgb(255 255 255 / 11%);
+  color: rgb(255 255 255 / 88%);
+  font-size: 14px;
+  font-weight: 720;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 12%);
+  backdrop-filter: blur(20px);
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.navAction:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 40px, 1200px);
+  margin-inline: auto;
+  padding-top: 96px;
+}
+
+.content::before {
+  display: block;
+  width: 44px;
+  height: 4px;
+  margin-bottom: 24px;
+  border-radius: 999px;
+  background: #0064ff;
+  box-shadow: 0 0 24px rgb(0 100 255 / 80%);
+  content: "";
+}
+
+.content h1 {
+  max-width: 840px;
+  margin: 0;
+  background: linear-gradient(135deg, #ffffff 30%, #89b4f8 100%);
+  background-clip: text;
+  color: transparent;
+  font-size: clamp(2.5rem, 6.5vw, 5.25rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  text-shadow: 0 8px 30px rgb(0 0 0 / 15%);
+  text-wrap: balance;
+}
+
+.content p {
+  max-width: 540px;
+  margin: 24px 0 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 18px;
+  font-weight: 560;
+  line-height: 1.6;
+  letter-spacing: -0.2px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.primaryAction,
+.secondaryAction {
+  display: inline-flex;
+  min-height: 54px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: 12px;
+  padding-inline: 26px;
+  font-size: 15px;
+  font-weight: 760;
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.primaryAction {
+  background: linear-gradient(135deg, #0064ff 0%, #2a7cff 100%);
+  color: #ffffff;
+  box-shadow:
+    0 12px 30px rgba(0, 100, 255, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.primaryAction:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #005ce6 0%, #2f7eef 100%);
+  box-shadow:
+    0 16px 36px rgba(0, 100, 255, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.secondaryAction {
+  border: 1px solid rgb(255 255 255 / 18%);
+  background: rgb(255 255 255 / 12%);
+  color: rgb(255 255 255 / 88%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 12%);
+  backdrop-filter: blur(20px);
+}
+
+.secondaryAction:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.primaryAction:focus-visible,
+.secondaryAction:focus-visible,
+.navAction:focus-visible,
+.brand:focus-visible {
+  outline: 2px solid #0064ff;
+  outline-offset: 3px;
+}
+
+.stageRail {
+  position: absolute;
+  right: max(20px, calc((100vw - 1200px) / 2));
+  bottom: 40px;
+  left: max(20px, calc((100vw - 1200px) / 2));
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.35);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px);
+}
+
+.stageRail span {
+  position: relative;
+  min-width: 0;
+  padding: 20px 24px 18px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.stageRail span + span {
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stageRail span::before {
+  position: absolute;
+  top: 0;
+  right: 24px;
+  left: 24px;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  content: "";
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.stageRail span:first-child {
+  color: #ffffff;
+}
+
+.stageRail span:first-child::before {
+  background: #0064ff;
+  box-shadow: 0 0 16px rgb(0 100 255 / 80%);
+}
+
+.stepNum {
+  font-size: 11px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.35);
+  margin-right: 8px;
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+}
+
+.stageRail span:first-child .stepNum {
+  color: #c9e2ff;
+}
+
+@media (max-width: 1200px) {
+  .nav,
+  .content {
+    width: calc(100% - 40px);
+  }
+}
+
+@media (max-width: 900px) {
+  .nav {
+    margin-top: 16px;
+    padding: 10px 18px;
+  }
+  
+  .content {
+    padding-top: 48px;
+  }
+
+  .content h1 {
+    font-size: clamp(2rem, 8vw, 3.5rem);
+    letter-spacing: -1px;
+  }
+
+  .content p {
+    font-size: 16px;
+    margin-top: 18px;
+  }
+
+  .stageRail {
+    left: 20px;
+    right: 20px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 1px;
+  }
+  
+  .stageRail span {
+    padding: 14px 12px;
+  }
+  
+  .stageRail span::before {
+    left: 12px;
+    right: 12px;
+  }
+}
+

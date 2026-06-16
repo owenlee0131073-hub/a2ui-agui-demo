@@ -1,0 +1,29 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-inline: auto;
+  max-width: 1180px;
+  width: 100%;
+}
+
+.summary {
+  align-items: center;
+  color: var(--muted-foreground);
+  display: flex;
+  font-size: 14px;
+  gap: 12px;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.empty {
+  margin-inline: auto;
+  max-width: 980px;
+  min-height: 360px;
+  width: 100%;
+}

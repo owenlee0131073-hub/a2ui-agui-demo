@@ -1,0 +1,46 @@
+direction right
+
+User [shape: oval, color: "#111827"]
+
+Frontend Path [color: "#0064FF"] {
+  CopilotSidebar [color: "#0284C7"]
+  Next CopilotKit API [label: "Next /api/copilotkit", color: "#7C3AED"]
+  Copilot Runtime HttpAgent [label: "CopilotRuntime + HttpAgent", color: "#8B5CF6"]
+  Browser Agent State [label: "Browser agent.state", color: "#0F766E"]
+  Main workspace [color: "#06B6D4"]
+}
+
+Backend Path [color: "#202632"] {
+  FastAPI AGUI API [label: "FastAPI /api/ag-ui", color: "#334155"]
+  AGUIAdapter [color: "#475569"]
+  Pydantic AI travel_planner [color: "#D97706"]
+  Backend Python tools [color: "#16A34A"]
+}
+
+Frontend Tool Path [color: "#0284C7"] {
+  Frontend workspace tools [color: "#0284C7"]
+  render_a2ui [color: "#DB2777"]
+}
+
+User > CopilotSidebar: 1 chat message
+CopilotSidebar > Next CopilotKit API: 2 POST
+Next CopilotKit API > Copilot Runtime HttpAgent: 3 runtime request
+Copilot Runtime HttpAgent > FastAPI AGUI API: 4 RunAgentInput(messages,state,tools)
+FastAPI AGUI API > AGUIAdapter: 5 dispatch_request
+AGUIAdapter > Pydantic AI travel_planner: 6 run with deps.state
+Pydantic AI travel_planner > Pydantic AI travel_planner: 7 read prompt and shared state
+
+Pydantic AI travel_planner > Backend Python tools: domain data needed
+Backend Python tools > Pydantic AI travel_planner: DemoToolResult
+
+Pydantic AI travel_planner > Frontend workspace tools: main workspace should change
+Frontend workspace tools > Browser Agent State: agent.setState
+Browser Agent State > Main workspace: render current stage
+
+Pydantic AI travel_planner > render_a2ui: chat-side visual needed
+render_a2ui > CopilotSidebar: A2UI activity
+
+Pydantic AI travel_planner --> AGUIAdapter: text, tool events, completion
+AGUIAdapter --> FastAPI AGUI API: AG-UI SSE events
+FastAPI AGUI API --> Copilot Runtime HttpAgent: stream response
+Copilot Runtime HttpAgent --> CopilotSidebar: assistant message

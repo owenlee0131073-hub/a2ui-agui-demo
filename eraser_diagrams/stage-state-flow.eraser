@@ -1,0 +1,34 @@
+direction right
+
+Start [shape: oval, color: "#111827"]
+
+Business Trip Workflow [color: "#0064FF"] {
+  requirements [color: "#0064FF"]
+  draft [color: "#F59E0B"]
+  comparison [color: "#16A34A"]
+  review [color: "#DC2626"]
+  final [shape: oval, color: "#0F766E"]
+}
+
+State Slices [color: "#64748B"] {
+  form fields [color: "#0064FF"]
+  Draft Itinerary [label: "draftPlan.itinerary", color: "#F59E0B"]
+  hotelOptions [color: "#16A34A"]
+  policyChecks approvalStatus [color: "#DC2626"]
+  finalPlan [color: "#0F766E"]
+}
+
+Start > requirements: initial
+requirements > draft: confirm_requirements
+draft > comparison: confirm comparison
+comparison > review: select_hotel
+review > final: approve_plan
+review > draft: reject_plan
+draft > draft: edit_draft_event
+requirements > requirements: edit_requirement_form
+
+requirements --> form fields: reads
+draft --> Draft Itinerary: reads
+comparison --> hotelOptions: reads
+review --> policyChecks approvalStatus: reads
+final --> finalPlan: reads

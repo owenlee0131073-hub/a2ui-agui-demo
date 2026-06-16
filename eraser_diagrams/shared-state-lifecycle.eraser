@@ -1,0 +1,30 @@
+direction right
+
+Browser State Owner [color: "#0064FF"] {
+  workspace action [color: "#0284C7"]
+  frontend tool handler [color: "#7C3AED"]
+  Agent State [label: "agent.state BusinessTripWorkspaceState", color: "#0F766E"]
+}
+
+Every AG-UI Run [color: "#202632"] {
+  RunAgentInput.state [color: "#475569"]
+  TravelPlannerState validation [color: "#16A34A"]
+  Current shared state JSON [color: "#F59E0B"]
+  Pydantic AI Agent [color: "#D97706"]
+}
+
+Rendering [color: "#06B6D4"] {
+  stage route [color: "#7C3AED"]
+  stage component [color: "#06B6D4"]
+}
+
+workspace action > Agent State: local user edit
+frontend tool handler > Agent State: agent.setState
+Agent State > RunAgentInput.state: next request
+RunAgentInput.state > TravelPlannerState validation: Pydantic schema
+TravelPlannerState validation > Current shared state JSON: model_dump
+Current shared state JSON > Pydantic AI Agent: injected into instructions
+Pydantic AI Agent --> frontend tool handler: call tool when state changes
+Agent State > stage route: stage
+stage route > stage component: route decides page
+Agent State > stage component: render data

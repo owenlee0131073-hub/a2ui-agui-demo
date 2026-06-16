@@ -1,0 +1,9 @@
+.card {
+  min-height: 148px;
+}
+
+.description {
+  color: var(--muted-foreground);
+  font-size: 14px;
+  line-height: 1.55;
+}

@@ -1,0 +1,358 @@
+.calendar {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(32, 38, 50, 0.04);
+}
+
+.calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-bottom: 1px solid var(--border);
+  padding: 18px 20px;
+}
+
+.headerTitle,
+.headerMeta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.headerTitle {
+  color: var(--foreground);
+  font-size: 14px;
+  font-weight: 760;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.headerTitle svg {
+  color: var(--primary);
+}
+
+.headerMeta {
+  color: var(--muted-foreground);
+  font-size: 13px;
+  font-weight: 680;
+}
+
+.calendarScroll {
+  max-height: calc(100vh - 250px);
+  overflow: auto;
+}
+
+.calendarGrid {
+  display: grid;
+  min-width: calc(78px + (var(--day-count) * 230px));
+  grid-template-columns: 78px repeat(var(--day-count), minmax(230px, 1fr));
+  grid-template-rows: 48px 34px var(--timeline-height);
+  background: #ffffff;
+}
+
+.timezoneCell,
+.dayHeader,
+.allDayLabel,
+.allDayCell,
+.timeRail,
+.dayColumn {
+  border-right: 1px solid var(--border);
+}
+
+.timezoneCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted-foreground);
+  font-size: 12px;
+  font-weight: 760;
+}
+
+.dayHeader {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  border-bottom: 1px solid var(--border);
+  background: rgb(0 100 255 / 3%);
+}
+
+.dayHeader strong {
+  color: rgb(32 38 50 / 72%);
+  font-size: 16px;
+  font-weight: 760;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.dayHeader small {
+  color: var(--muted-foreground);
+  font-size: 12px;
+  font-weight: 640;
+}
+
+.allDayLabel,
+.allDayCell {
+  border-bottom: 1px solid var(--border);
+  background: rgb(32 38 50 / 2%);
+}
+
+.allDayLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(32 38 50 / 54%);
+  font-size: 11px;
+  font-weight: 720;
+}
+
+.allDayCell {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  padding: 6px 10px;
+}
+
+.floatingEvent {
+  display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
+  align-items: center;
+  border: 1px solid rgb(0 100 255 / 20%);
+  border-radius: 8px;
+  padding: 4px 8px;
+  background: rgb(0 100 255 / 8%);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 720;
+  white-space: nowrap;
+}
+
+.timeRail {
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(var(--hour-height) - 1px),
+      var(--border) calc(var(--hour-height) - 1px),
+      var(--border) var(--hour-height)
+    ),
+    rgb(32 38 50 / 2%);
+}
+
+.timeSlot {
+  display: flex;
+  height: var(--hour-height);
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 9px 10px 0 0;
+  color: rgb(32 38 50 / 62%);
+  font-size: 12px;
+  font-weight: 720;
+}
+
+.dayColumn {
+  position: relative;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(var(--hour-height) - 1px),
+      var(--border) calc(var(--hour-height) - 1px),
+      var(--border) var(--hour-height)
+    ),
+    #ffffff;
+}
+
+.eventBlock {
+  position: absolute;
+  right: 10px;
+  left: 10px;
+  display: flex;
+  min-height: 42px;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+  border: 1px solid rgb(32 38 50 / 10%);
+  border-left-width: 3px;
+  border-radius: 8px;
+  padding: 7px 9px;
+  background: rgb(255 255 255 / 96%);
+  color: var(--foreground);
+  box-shadow:
+    0 8px 20px rgb(32 38 50 / 7%),
+    0 1px 0 rgb(255 255 255 / 86%) inset;
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    transform 140ms ease;
+}
+
+.eventEditable {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.eventEditable:hover {
+  border-color: rgb(0 100 255 / 28%);
+  box-shadow:
+    0 12px 26px rgb(0 100 255 / 10%),
+    0 1px 0 rgb(255 255 255 / 86%) inset;
+}
+
+.eventDragging {
+  z-index: 3;
+  cursor: grabbing;
+  box-shadow:
+    0 18px 42px rgb(0 100 255 / 16%),
+    0 1px 0 rgb(255 255 255 / 86%) inset;
+  transform: scale(1.01);
+}
+
+.eventReadOnly {
+  cursor: default;
+}
+
+.eventMeta {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.eventMeta span,
+.location {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 5px;
+  color: rgb(32 38 50 / 64%);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.eventBlock h3 {
+  margin: 0;
+  overflow: hidden;
+  color: var(--foreground);
+  font-size: 13px;
+  font-weight: 760;
+  letter-spacing: 0;
+  line-height: 1.22;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.eventBlock p {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: rgb(32 38 50 / 68%);
+  font-size: 12px;
+  font-weight: 560;
+  line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.eventCompact {
+  justify-content: center;
+  gap: 3px;
+  padding-block: 6px;
+}
+
+.eventCompact .eventMeta {
+  justify-content: flex-start;
+}
+
+.eventCompact .eventMeta [data-slot="badge"],
+.eventCompact p,
+.eventCompact .location {
+  display: none;
+}
+
+.eventCompact h3 {
+  font-size: 12px;
+}
+
+.resizeHandle {
+  position: absolute;
+  right: 12px;
+  bottom: 4px;
+  left: 12px;
+  height: 10px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: ns-resize;
+}
+
+.resizeHandle::after {
+  position: absolute;
+  top: 4px;
+  left: calc(50% - 14px);
+  width: 28px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgb(32 38 50 / 22%);
+  content: "";
+}
+
+.resizeHandle:hover::after,
+.eventDragging .resizeHandle::after {
+  background: rgb(0 100 255 / 42%);
+}
+
+.eventCompact .resizeHandle {
+  display: none;
+}
+
+.eventMeeting {
+  border-left-color: var(--primary);
+  background: linear-gradient(180deg, rgb(0 100 255 / 9%), #ffffff 56%);
+}
+
+.eventWork {
+  border-left-color: var(--foreground);
+  background: linear-gradient(180deg, rgb(32 38 50 / 7%), #ffffff 56%);
+}
+
+.eventTravel {
+  border-left-color: rgb(32 38 50 / 52%);
+  background: linear-gradient(180deg, rgb(32 38 50 / 5%), #ffffff 58%);
+}
+
+.eventMeal {
+  border-left-color: rgb(0 100 255 / 52%);
+  background: linear-gradient(180deg, rgb(0 100 255 / 5%), #ffffff 58%);
+}
+
+.eventLodging {
+  border-left-color: rgb(32 38 50 / 72%);
+  background: linear-gradient(180deg, rgb(32 38 50 / 8%), #ffffff 58%);
+}
+
+.eventBuffer {
+  border-left-color: rgb(0 100 255 / 32%);
+  background: linear-gradient(180deg, rgb(0 100 255 / 4%), #ffffff 58%);
+}
+
+@media (max-width: 900px) {
+  .calendarHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .calendarScroll {
+    max-height: none;
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "folders": [
+    {
+      "name": "agent_shared_backend",
+      "path": "agent_shared_backend"
+    },
+    {
+      "name": "copilotkit_agui",
+      "path": "copilotkit_agui"
+    }
+  ],
+  "settings": {
+    "python.defaultInterpreterPath": "${workspaceFolder:agent_shared_backend}/.venv/bin/python",
+    "python.analysis.extraPaths": [
+      "${workspaceFolder:agent_shared_backend}/src"
+    ],
+    "python.terminal.activateEnvironment": true,
+    "ruff.interpreter": [
+      "${workspaceFolder:agent_shared_backend}/.venv/bin/python"
+    ],
+    "npm.packageManager": "bun",
+    "eslint.packageManager": "bun",
+    "terminal.integrated.env.osx": {
+      "A2UI_AGUI_AGENT_VENV": "${workspaceFolder:agent_shared_backend}/.venv",
+      "BUN_INSTALL": "${env:HOME}/.bun",
+      "PATH": "${workspaceFolder:agent_shared_backend}/.venv/bin:${env:HOME}/.bun/bin:${env:PATH}"
+    }
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "agent_shared_backend: uv sync",
+        "type": "shell",
+        "command": "uv sync --frozen",
+        "options": {
+          "cwd": "${workspaceFolder:agent_shared_backend}"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "agent_shared_backend: dev",
+        "type": "shell",
+        "command": "uv run uvicorn src.app:app --host 0.0.0.0 --port 8200",
+        "options": {
+          "cwd": "${workspaceFolder:agent_shared_backend}"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "agent_shared_backend: check",
+        "type": "shell",
+        "command": "uv run python -m compileall src && uv run ruff check src && uv pip check",
+        "options": {
+          "cwd": "${workspaceFolder:agent_shared_backend}"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "copilotkit_agui: bun install",
+        "type": "shell",
+        "command": "bun install",
+        "options": {
+          "cwd": "${workspaceFolder:copilotkit_agui}"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "copilotkit_agui: bun dev",
+        "type": "shell",
+        "command": "bun run dev",
+        "options": {
+          "cwd": "${workspaceFolder:copilotkit_agui}"
+        },
+        "problemMatcher": []
+      }
+    ]
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "charliermarsh.ruff",
+      "oven.bun-vscode",
+      "dbaeumer.vscode-eslint"
+    ]
+  }
+}

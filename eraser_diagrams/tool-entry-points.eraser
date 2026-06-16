@@ -1,0 +1,66 @@
+direction right
+
+Pydantic AI travel_planner [shape: oval, color: "#D97706"]
+AG-UI RunAgentInput.tools [color: "#7C3AED"]
+AG-UI shared state [color: "#0F766E"]
+CopilotSidebar chat [color: "#DB2777"]
+Main workspace [color: "#06B6D4"]
+
+Backend Tools [color: "#16A34A"] {
+  calendar_check_availability [color: "#2563EB"]
+  hotel_search_options [color: "#16A34A"]
+  budget_validate_policy [color: "#F59E0B"]
+  policy_check_travel_rules [color: "#DC2626"]
+}
+
+Frontend Tools [color: "#0284C7"] {
+  set_business_trip_stage [color: "#7C3AED"]
+  update_requirement_form [color: "#0064FF"]
+  update_draft_plan [color: "#F59E0B"]
+  update_hotel_options [color: "#16A34A"]
+  update_policy_checks [color: "#DC2626"]
+  set_final_plan [color: "#0F766E"]
+  select_hotel_option [color: "#DB2777"]
+  update_travel_workspace fallback [color: "#64748B"]
+  render_a2ui [color: "#DB2777"]
+}
+
+Pydantic AI travel_planner > calendar_check_availability: domain lookup
+calendar_check_availability > Pydantic AI travel_planner: DemoToolResult
+Pydantic AI travel_planner > hotel_search_options: domain lookup
+hotel_search_options > Pydantic AI travel_planner: DemoToolResult
+Pydantic AI travel_planner > budget_validate_policy: validation
+budget_validate_policy > Pydantic AI travel_planner: DemoToolResult
+Pydantic AI travel_planner > policy_check_travel_rules: policy check
+policy_check_travel_rules > Pydantic AI travel_planner: DemoToolResult
+
+set_business_trip_stage --> AG-UI RunAgentInput.tools: schema
+update_requirement_form --> AG-UI RunAgentInput.tools: schema
+update_draft_plan --> AG-UI RunAgentInput.tools: schema
+update_hotel_options --> AG-UI RunAgentInput.tools: schema
+update_policy_checks --> AG-UI RunAgentInput.tools: schema
+set_final_plan --> AG-UI RunAgentInput.tools: schema
+select_hotel_option --> AG-UI RunAgentInput.tools: schema
+update_travel_workspace fallback --> AG-UI RunAgentInput.tools: schema
+render_a2ui --> AG-UI RunAgentInput.tools: runtime schema
+
+AG-UI RunAgentInput.tools --> Pydantic AI travel_planner: available tools
+Pydantic AI travel_planner --> update_requirement_form: tool call
+Pydantic AI travel_planner --> update_draft_plan: tool call
+Pydantic AI travel_planner --> update_hotel_options: tool call
+Pydantic AI travel_planner --> update_policy_checks: tool call
+Pydantic AI travel_planner --> set_final_plan: tool call
+Pydantic AI travel_planner --> select_hotel_option: tool call
+Pydantic AI travel_planner --> update_travel_workspace fallback: broad patch
+Pydantic AI travel_planner --> render_a2ui: chat visual
+
+update_requirement_form > AG-UI shared state: agent.setState
+update_draft_plan > AG-UI shared state: agent.setState
+update_hotel_options > AG-UI shared state: agent.setState
+update_policy_checks > AG-UI shared state: agent.setState
+set_final_plan > AG-UI shared state: agent.setState
+select_hotel_option > AG-UI shared state: agent.setState
+set_business_trip_stage > AG-UI shared state: agent.setState
+update_travel_workspace fallback > AG-UI shared state: agent.setState
+AG-UI shared state > Main workspace: fixed React stage view
+render_a2ui > CopilotSidebar chat: chat-local visual

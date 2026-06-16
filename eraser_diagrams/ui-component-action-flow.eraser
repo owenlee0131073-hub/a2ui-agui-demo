@@ -1,0 +1,18 @@
+direction right
+
+Workspace component [shape: oval, color: "#06B6D4"]
+actions.ts [color: "#7C3AED"]
+Agent State [label: "agent.state", color: "#0F766E"]
+CopilotKit runAgent [color: "#8B5CF6"]
+Backend AGUI API [label: "Backend /api/ag-ui", color: "#334155"]
+Pydantic AI Agent [shape: oval, color: "#D97706"]
+
+Workspace component > actions.ts: confirm, select, approve, edit
+actions.ts > actions.ts: applyBusinessTripWorkspaceAction
+actions.ts > Agent State: agent.setState(nextState)
+actions.ts > Agent State: agent.addMessage(UI action)
+actions.ts > CopilotKit runAgent: forwardedProps.uiAction
+CopilotKit runAgent > Backend AGUI API: RunAgentInput with latest state
+Backend AGUI API > Pydantic AI Agent: run with ctx.deps.state
+Pydantic AI Agent > Pydantic AI Agent: read lastUserAction + pendingAction
+Pydantic AI Agent > CopilotKit runAgent: short answer or next tool call

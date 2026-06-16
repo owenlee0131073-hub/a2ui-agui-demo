@@ -1,0 +1,24 @@
+.page {
+  margin-inline: auto;
+  max-width: 860px;
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.content p {
+  color: var(--muted-foreground);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.empty {
+  margin-inline: auto;
+  max-width: 980px;
+  min-height: 360px;
+  width: 100%;
+}

@@ -1,0 +1,36 @@
+direction right
+
+User [shape: oval, color: "#111827"]
+
+Browser Client [color: "#0064FF"] {
+  CopilotSidebar [color: "#0284C7"]
+  CopilotKitProvider [color: "#2563EB"]
+  AG-UI shared state [color: "#0F766E"]
+  BusinessTripWorkspace [color: "#06B6D4"]
+}
+
+Next Runtime [color: "#7C3AED"] {
+  CopilotKit API [label: "/api/copilotkit", color: "#8B5CF6"]
+  CopilotRuntime [color: "#7C3AED"]
+  HttpAgent travel_planner [color: "#A855F7"]
+}
+
+FastAPI Backend [color: "#202632"] {
+  AGUI API [label: "/api/ag-ui", color: "#334155"]
+  AGUIAdapter [color: "#475569"]
+  Pydantic AI Agent [color: "#D97706"]
+}
+
+User > CopilotSidebar: chat or UI request
+CopilotSidebar > CopilotKitProvider
+CopilotKitProvider > CopilotKit API: POST
+CopilotKit API > CopilotRuntime
+CopilotRuntime > HttpAgent travel_planner
+HttpAgent travel_planner > AGUI API: AG-UI RunAgentInput
+AGUI API > AGUIAdapter: dispatch_request
+AGUIAdapter > Pydantic AI Agent: run
+Pydantic AI Agent --> CopilotRuntime: AG-UI SSE events
+CopilotRuntime --> CopilotKitProvider: messages, state, tool results
+CopilotKitProvider > AG-UI shared state: update agent.state
+AG-UI shared state > BusinessTripWorkspace: render stage view
+BusinessTripWorkspace --> BusinessTripWorkspace: stage drives route
